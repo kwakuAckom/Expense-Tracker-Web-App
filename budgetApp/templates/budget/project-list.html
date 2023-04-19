@@ -1,0 +1,39 @@
+{% extends 'budget/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="center-align" style="font-family: Arial, sans-serif; color: #333; font-size: 36px; line-height: 1.5;">My Projects</h2>
+    <hr class="divider">
+    <a href="{% url 'homepage' %}"
+        class="btn-floating btn-large waves-effect waves-light teal lighten-1 right hoverable rounded z-depth-2"
+        style="position: absolute; top: 20px; left: 20px;"><i class="material-icons">arrow_back</i></a>
+    <a href="{% url 'add' %}" class="btn-floating btn-large waves-effect waves-light teal lighten-1 right"
+        style="position: absolute; top: 20px; right: 20px;"><i class="material-icons">add</i></a>
+    <div class="row" style="margin-top: 40px;">
+        {% for project in project_list %}
+        <div class="col s12 m6 l4" style="margin-bottom: 30px;">
+            <div class="card hoverable" style="padding: 10px;">
+                <div class="card-content">
+                    <span class="card-title teal-text text-darken-4" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333; font-size: 24px; line-height: 1.5;"><b>{{ project.name }}</b></span>
+                    <p style="font-family: Arial, sans-serif; color: #666; font-size: 16px;">Budget: GHc{{ project.budget }}</p>
+                    <p style="font-family: Arial, sans-serif; color: #666; font-size: 16px;">Amount left: GHc{{ project.get_left }}</p>
+                </div>
+                <div class="card-action">
+                    <a href="{% url 'detail' project.slug %}" class="teal-text text-darken-4" style="font-family: Arial, sans-serif; color: #333; font-size: 16px;">Visit</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col s12 center-align" style="margin-top: 60px;">
+            <h3 class="grey-text" style="font-family: Arial, sans-serif; color: #333; font-size: 24px; line-height: 1.5;">
+                Sorry, you don't have any projects yet
+            </h3>
+            <a href="{% url 'add' %}" class="btn-large waves-effect waves-light teal darken-4" style="margin-top: 20px;">
+                <i class="material-icons left">add_circle</i>
+                <span class="bold" style="font-family: Arial, sans-serif; color: #fff; font-size: 20px;">Add projects</span>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

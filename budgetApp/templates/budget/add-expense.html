@@ -1,0 +1,57 @@
+{% extends 'budget/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div id="expenseModal" class="modal">
+    <div class="modal-content">
+        <h4>Add Expense</h4>
+        <form id="expense-form" method="POST" action="{% url 'add-expense' %}">
+            {% csrf_token %}
+            <div class="input-field">
+                <input id="title" type="text" name="title">
+                <label for="title">Title</label>
+            </div>
+            <div class="input-field">
+                <input id="amount" type="number" name="amount">
+                <label for="amount">Amount</label>
+            </div>
+            <div class="input-field">
+                <input id="category" type="text" name="category">
+                <label for="category">Category</label>
+            </div>
+            <div class="input-field">
+                <input id="date" type="date" name="date">
+                <label for="date">Date</label>
+            </div>
+            <button type="submit" class="btn waves-effect waves-light">Add</button>
+        </form>
+    </div>
+</div>
+
+<!-- ... previous code ... -->
+
+<script>
+    var elem = document.querySelector('.modal')
+    var instance = M.Modal.init(elem)
+    var elem = document.querySelector('.select')
+    var instance = M.FormSelect.init(elem)
+
+    function deleteExpense(id) {
+        fetch('', {
+            method: 'DELETE',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({
+                'id': id
+            }),
+            credentials: 'same-origin',
+        })
+    }
+
+    document.getElementById('expense-form').addEventListener('submit', function () {
+        this.reset();
+    });
+</script>
+{% endblock %}

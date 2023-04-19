@@ -1,0 +1,89 @@
+body {
+    font-family: 'Montserrat';
+    background-image: -o-repeating-linear-gradient(4);
+    /*background-color: #5399ae;*/
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form {
+    height: 600px;
+    width: 500px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 10px;
+    border: 10px solid grey;
+}
+.parent {
+    border-radius: 10px;
+    height: 95vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+input {
+    padding: 10px;
+    margin: 5px;
+    width: 220px;
+    border: 1px solid dodgerblue;
+    border-radius: 5px;
+}
+button {
+    background-color: rgb(8, 11, 111);
+    padding: 10px;
+    margin: 5px;
+    width: auto;
+    border: none;
+    border-radius: 5px;
+    color: rgb(242, 242, 244);
+}
+button:hover{
+    background-color: white;
+    color: blue;
+}
+a:hover {
+    background-color: blue;
+    color: white;
+    padding: 10px;
+    margin: 5px;
+    width: auto;
+    border: none;
+    border-radius: 5px;
+}
+#financial-tips {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.tip-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tip {
+    background-color: #f2f2f2;
+    padding: 20px;
+    margin-right: 20px;
+    text-align: center;
+    width: 300px;
+    height: 200px;
+    border-radius: 5px;
+}
+
+.tip h3 {
+    margin-top: 0;
+}
+
+.tip p {
+    margin-bottom: 0;
+}
+
+/* Hide the financial tips initially */
+#financial-tips.hide {
+    display: none;
+}
