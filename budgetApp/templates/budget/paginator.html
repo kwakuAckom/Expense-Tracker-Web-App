@@ -1,0 +1,30 @@
+<div class="pagination-container">
+    {% if page.has_previous %}
+    <a href="?page={{ page.previous_page_number }}">Previous</a>
+    {% endif %}
+    <span class="page-info">Page {{ page.number }} of {{ page.paginator.num_pages }}</span>
+    {% if page.has_next %}
+    <a href="?page={{ page.next_page_number }}">Next</a>
+    {% endif %}
+</div>
+
+<style>
+    .pagination-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .pagination-container a {
+        margin: 0 10px;
+        font-size: 16px;
+        color: #333;
+        text-decoration: none;
+    }
+
+    .pagination-container .page-info {
+        font-size: 16px;
+        color: #666;
+        margin: 0 10px;
+    }
+</style>

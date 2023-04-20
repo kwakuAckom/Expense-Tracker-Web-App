@@ -2,22 +2,18 @@
 {% load static %}
 {% block content %}
 <div class="container">
-    <h2>Create a new project</h2>
-    <form method="post">
+    <form action="" method="post">
         {% csrf_token %}
-        <div class="form-group">
-            <label for="{{ form.name.id_for_label }}">Project Name</label>
-            {{ form.name }}
-        </div>
-        <div class="form-group">
-            <label for="{{ form.budget.id_for_label }}">Budget</label>
-            {{ form.budget }}
-        </div>
-        <div class="form-group">
-            <label for="{{ form.income_source.id_for_label }}">Income Source</label>
-            {{ form.income_source }}
-        </div>
-        <button type="submit" class="btn btn-primary">Create Project</button>
+        {{ form }}
+        <label for="categoryInput">Expense category (hit enter)</label>
+        <input type="text" name=categoryInput id="categoryInput">
+        <input type="hidden" name="categoriesString">
+
+        <ul id="categoryContainer">
+
+        </ul>
+        <button type="submit" class="btn">Start project</button>
     </form>
 </div>
+<script src="{% static 'js/script.js' %}"></script>
 {% endblock %}

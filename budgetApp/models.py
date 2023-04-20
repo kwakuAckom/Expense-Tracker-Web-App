@@ -41,12 +41,15 @@ class Project(models.Model):
     slug = models.SlugField(max_length=100, unique=True, blank=True)
     budget = models.PositiveIntegerField()
     income_source = models.ForeignKey(Income, on_delete=models.CASCADE, related_name='projects', null=True, blank=True)
+    start_date = models.DateField()
+    end_date = models.DateField()
 
     def save(self, *args, **kwargs):
         if self.income_source and self.income_source.amount > self.budget:
             raise ValidationError("Income source amount cannot be greater than the budget.")
         self.slug = slugify(self.name)
         super(Project, self).save(*args, **kwargs)
+
 
 
 

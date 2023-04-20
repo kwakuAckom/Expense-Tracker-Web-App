@@ -1,5 +1,5 @@
 from django import forms
-from .models import Expense, Project
+from .models import Category, Expense, Project
 
 
 
@@ -9,20 +9,17 @@ from .models import Expense, Project
 #     category = forms.CharField()
 
 class ExpenseForm(forms.ModelForm):
+    category = forms.ModelChoiceField(queryset=Category.objects.none())
+
     class Meta:
         model = Expense
-        fields = "__all__"
-        # fields = ('title', 'amount', 'category')
+        fields = ['title', 'description', 'amount', 'category', 'priority']
 
-    def clean_amount(self):
-        amount = self.cleaned_data.get('amount')
-        if not amount:
-            raise forms.ValidationError("Amount field is required.")
-        try:
-            amount = float(amount)
-        except ValueError:
-            raise forms.ValidationError("Amount must be a valid number.")
-        return amount
+    def __init__(self, *args, **kwargs):
+        project = kwargs.pop('project', None)
+        super().__init__(*args, **kwargs)
+        if project:
+            self.fields['category'].queryset = Category.objects.filter(project=project)
 
 class CreateProjectForm(forms.ModelForm):
     class Meta:

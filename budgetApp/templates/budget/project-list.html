@@ -4,11 +4,6 @@
 <div class="container">
     <h2 class="center-align" style="font-family: Arial, sans-serif; color: #333; font-size: 36px; line-height: 1.5;">My Projects</h2>
     <hr class="divider">
-    <a href="{% url 'homepage' %}"
-        class="btn-floating btn-large waves-effect waves-light teal lighten-1 right hoverable rounded z-depth-2"
-        style="position: absolute; top: 20px; left: 20px;"><i class="material-icons">arrow_back</i></a>
-    <a href="{% url 'add' %}" class="btn-floating btn-large waves-effect waves-light teal lighten-1 right"
-        style="position: absolute; top: 20px; right: 20px;"><i class="material-icons">add</i></a>
     <div class="row" style="margin-top: 40px;">
         {% for project in project_list %}
         <div class="col s12 m6 l4" style="margin-bottom: 30px;">
@@ -28,12 +23,18 @@
             <h3 class="grey-text" style="font-family: Arial, sans-serif; color: #333; font-size: 24px; line-height: 1.5;">
                 Sorry, you don't have any projects yet
             </h3>
-            <a href="{% url 'add' %}" class="btn-large waves-effect waves-light teal darken-4" style="margin-top: 20px;">
-                <i class="material-icons left">add_circle</i>
-                <span class="bold" style="font-family: Arial, sans-serif; color: #fff; font-size: 20px;">Add projects</span>
-            </a>
         </div>
         {% endfor %}
     </div>
+    <div class="row" style="margin-top: 40px;">
+        <div class="col s12">
+            {% include "budget/paginator.html" with page=project_list %}
+        </div>
+    </div>
+    <a href="{% url 'homepage' %}"
+        class="btn-floating btn-large waves-effect waves-light teal lighten-1 right hoverable rounded z-depth-2"
+        style="position: fixed; bottom: 20px; left: 20px;"><i class="material-icons">arrow_back</i></a>
+    <a href="{% url 'add' %}" class="btn-floating btn-large waves-effect waves-light teal lighten-1 right"
+        style="position: fixed; bottom: 20px; right: 20px;"><i class="material-icons">add</i></a>
 </div>
 {% endblock %}

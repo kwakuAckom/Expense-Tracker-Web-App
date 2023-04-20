@@ -12,18 +12,24 @@
 </head>
 
 <body style="background-color: #08224131; font-family: Arial, sans-serif; margin: 0;">
-    <header style="background-color: #0aa33f; color: #fff; padding: 0px 20px; height: 60px; display: flex; align-items: center; justify-content: center;">
-        <nav style="display: flex; padding: 2px; justify-content:space-between; align-items: center;">
-            <h1 style="margin-right: 10px; display:flex; align-items: center;"><a href="{% url 'about' %}"><img src="{% static 'user/images/budget-icon.png' %}"
-                        style="border-radius: 50%; height: 40px; width: 40px; margin-right: 3px;"></a><span
-                        style="font-size: larger;">Budget Buddy</span></h1>
-            <ul style="list-style: none; display: flex; justify-content: center; align-items: center; margin: 0;">
-                <li style="margin-right: 20px;"><a href="{% url 'list' %}" style="color: #fff; text-decoration: none;">Projects</a>
+    <header
+        style="background-color: #0aa33f; color: #fff; padding: 0px 20px; height: 60px; display: flex; align-items: center; justify-content: center;">
+        <nav style="display: flex; justify-content:space-between; align-items: center; width: 100%;">
+            <div style="display: flex; align-items: center;">
+                <a href="{% url 'about' %}"><img src="{% static 'user/images/budget-icon.png' %}"
+                        style="border-radius: 50%; height: 40px; width: 40px; margin-right: 3px;"></a>
+                <h1 style="margin-right: 10px;"><span style="font-size: larger;">Budget Buddy</span></h1>
+            </div>
+            <ul style="list-style: none; display: flex; justify-content: flex-end; align-items: center; margin: 0;">
+                <li style="margin-right: 20px;"><a href="{% url 'list' %}"
+                        style="color: #fff; text-decoration: none;">Projects</a>
                 </li>
                 <li style="margin-right: 20px;"><a href="#" style="color: #fff; text-decoration: none;">Reports</a></li>
-                <li style="margin-right: 30px;"><a href="{% url 'logout' %}" style="color: #fff; text-decoration: none;">Logout</a>
+                <li style="margin-right: 30px;"><a href="{% url 'logout' %}"
+                        style="color: #fff; text-decoration: none;">Logout</a>
                 </li>
-                <li style="margin-right: 10px; display:flex; align-items: center;"><img src="{% static 'user/images/new.jpg' %}"
+                <li style="margin-right: 10px; display:flex; align-items: center;"><img
+                        src="{% static 'user/images/new.jpg' %}"
                         style="border-radius: 50%; height: 40px; width: 40px; margin-right: 3px;"><span
                         style="font-size: 1.2rem;"><i class="fas fa-user"></i> {{ request.user.username }}</span></li>
             </ul>
@@ -38,26 +44,41 @@
             style="background-color: #0aa33f; color: #fff; font-size: 1.2rem; padding: 10px 20px; border-radius: 5px; text-decoration: none;">Get
             Started</a>
         <div id="financial-tips" style="margin-top: 50px;">
-            <h2 style="color: #050505; font-size: 2rem; margin-bottom: 20px;">Financial Tips</h2>
+            <h2 style="color: #050505; font-size: 2rem; margin-bottom: 20px;text-align: center;text-decoration: underline;">Financial Tips</h2>
             <div id="tip-container">
-                <p id="_tip" style="color: #050505; font-size: 1.2rem; margin-bottom: 20px;">Tip #1: Create a budget
+                <p id="_tip" style="color: #050505; font-size: 1.2rem; margin-bottom: 20px; text-align: center;">Create a budget
                     and stick to it.</p>
             </div>
         </div>
-    </main><br><br><br>
+    </main><br><br><br><br><br>
+    <style>
+        #tip-container {
+            opacity: 0.5;
+            transform: translateY(50%);
+            transition: opacity 1s ease-out, transform 1s ease-in-out;
+        }
+    </style>
     <footer style="background-color: #0aa33f; color: #fff; text-align: center; padding: 20px;">
         <p style="margin: 0;">&copy; 2023 Expense Tracker. All rights reserved.</p>
     </footer>
-
+    
+    <div id="tip"></div>
+    
     <script>
         const tipContainer = document.getElementById("_tip");
-        const tips = ["Tip #1: Create a budget and stick to it.", "Tip #2: Start saving for retirement as early as possible.", "Tip #3: Avoid high - interest debt like credit cards."]
-        var i = 0;
-        setInterval(()=>{
-            tipContainer.innerText = tips[i];
-            i = (i + 1) % tips.length;
-        }, 5000)
+        const tips = ["Create a budget and stick to it.", "Start saving for retirement as early as possible.", "Avoid high-interest debt like credit cards."];
+        let i = 0;
+
+        setInterval(() => {
+            tipContainer.style.opacity = 0;
+            setTimeout(() => {
+                tipContainer.innerText = tips[i];
+                i = (i + 1) % tips.length;
+                tipContainer.style.opacity = 1;
+            }, 1000);
+        }, 10000);
     </script>
+
 </body>
 
 </html>

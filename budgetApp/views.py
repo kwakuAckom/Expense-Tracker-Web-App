@@ -3,7 +3,7 @@ from django.utils.text import slugify
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import ExpenseForm, CreateProjectForm
 from .models import Project, Category, Expense
 from django.views.generic import CreateView
@@ -22,6 +22,15 @@ from django.views.decorators.csrf import csrf_exempt  # import the decorator
 @login_required
 def project_list(request):
     project_list = Project.objects.all()
+    paginator = Paginator(project_list,6)
+    print(request.GET)
+    page = request.GET.get('page')
+    try:
+        project_list = paginator.page(page)
+    except PageNotAnInteger:
+        project_list = paginator.page(1)
+    except EmptyPage:
+        project_list = paginator.page(paginator.num_pages)
     return render(request, 'budget/project-list.html', {'project_list':project_list})
 
 @login_required
@@ -86,3 +95,15 @@ class ProjectCreateView(CreateView):
     else:
         form = CreateProjectForm()
     return render(request, 'add-project.html', {'form': form})"""
+def add_expense(request, project_id):
+    project = Project.objects.get(id=project_id)
+    if request.method == 'POST':
+        form = ExpenseForm(request.POST)
+        if form.is_valid():
+            expense = form.save(commit=False)
+            expense.project = project
+            expense.save()
+            return redirect('project_detail', project_id=project_id)
+    else:
+        form = ExpenseForm()
+    return render(request, 'add_expense.html', {'form': form, 'project': project})
