@@ -16,6 +16,8 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from .models import Project, Expense
 from django.views.decorators.csrf import csrf_exempt  # import the decorator
+from django.core.exceptions import ValidationError
+
 
 # Create your views here.
 #OKAY
@@ -36,22 +38,27 @@ def project_list(request):
 @login_required
 @csrf_exempt
 def project_detail(request, project_slug):
+    print("details ---")
     project = get_object_or_404(Project, slug=project_slug)
     if request.method == 'POST':
+        print("adding---")
         form = ExpenseForm(request.POST)
-        if form.is_valid():
-            title = form.cleaned_data['title']
-            amount = form.cleaned_data['amount']
-            category_name = form.cleaned_data['category']
-            print(title, amount, category_name)
-            category, _ = Category.objects.get_or_create(name=category_name, project=project)
-            _save = Expense.objects.create(
-                project=project,
-                title=title,
-                amount=amount,
-                category=category
-            )
-            _save.save()
+        title = request.POST.get('title')
+        amount = request.POST.get('amount')
+        category_name = request.POST.get('category_name')
+        description = request.POST.get('description')
+        priority = request.POST.get('priority')
+        print(title, amount, category_name)
+        category, _ = Category.objects.get_or_create(name=category_name, project=project)
+        _save = Expense.objects.create(
+            project=project,
+            title=title,
+            amount=amount,
+            category=category,
+            description=description,
+            priority=priority
+        )
+        _save.save()
         return redirect('detail', project_slug=project_slug)
     elif request.method == 'DELETE':
         id = json.loads(request.body)['id']
@@ -62,8 +69,6 @@ def project_detail(request, project_slug):
         expenses = Expense.objects.filter(project=project).order_by('-priority', '-date')
         context = {'project': project, 'expense_list': expenses, 'form': ExpenseForm()}
         return render(request, 'budget/project-detail.html', context)
-
-
 
 
 class ProjectCreateView(CreateView):
@@ -86,19 +91,14 @@ class ProjectCreateView(CreateView):
     def get_success_url(self):
         return reverse('list')
 
-"""def create_project(request):
-    if request.method == 'POST':
-        form = CreateProjectForm(request.POST)
-        if form.is_valid():
-            project = form.save()
-            # Do something with the new project
-    else:
-        form = CreateProjectForm()
-    return render(request, 'add-project.html', {'form': form})"""
-def add_expense(request, project_id):
+""" def add_expense(request, project_id):
+    print("in -- 7")
     project = Project.objects.get(id=project_id)
+    print("in")
     if request.method == 'POST':
+        print(1)
         form = ExpenseForm(request.POST)
+        print(form)
         if form.is_valid():
             expense = form.save(commit=False)
             expense.project = project
@@ -106,4 +106,21 @@ def add_expense(request, project_id):
             return redirect('project_detail', project_id=project_id)
     else:
         form = ExpenseForm()
-    return render(request, 'add_expense.html', {'form': form, 'project': project})
+    return render(request, 'add-expense.html', {'form': form, 'project': project}) """
+
+
+
+""" def add_expense(request, project_slug):
+    print("in -- 7")
+    project = get_object_or_404(Project, slug=project_slug)
+    print("in")
+    if request.method == 'POST':
+        form = ExpenseForm(request.POST)
+        if form.is_valid():
+            expense = form.save(commit=False)
+            expense.project = project
+            expense.save()
+            return redirect('project_detail', project_slug=project_slug)
+    else:
+        form = ExpenseForm()
+    return render(request, 'budget/project-detail.html',{'project': project}) """

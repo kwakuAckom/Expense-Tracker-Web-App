@@ -6,6 +6,9 @@
         border-radius: 10px;
         box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     }
+    h4 {
+        text-transform: capitalize;
+    }
 </style>
 
 <div class="container">
@@ -38,7 +41,7 @@
     </div>
     {% if expense_list %}
     <div class="col s12 m6">
-        <h4 class="left-align">Expenses</h4>
+        <h4 class="left-align">Expenses  under {{ project.name }}</h4>
     </div>
     <table class="borderless z-depth-1">
         <thead>
@@ -59,7 +62,13 @@
                 <td>{{ expense.description }}</td>
                 <td>GHc{{ expense.amount }}</td>
                 <td>{{ expense.category.name }}</td>
-                <td>{{ expense.priority }}</td>
+                {% if expense.priority == 1 %}
+                <td>Low</td>
+                {% elif expense.priority == 2 %}
+                <td>Medium</td>
+                {% else %}
+                <td>High</td>
+                {% endif %}
                 <td>{{ expense.date }}</td>
                 <td>
                     <a class="close-icon" onclick="deleteExpense(this)" data-id="{{ expense.id }}">
@@ -78,6 +87,7 @@
         </button></li></ul>
     </div>
     {% else %}
+    <br>
     <p><h3> Project has no expenses </h3></p>
     
     <div class="col s12 m6">
@@ -104,17 +114,31 @@
         <form id="expense-form" method="POST" action="{% url 'detail' project.slug %}">
             {% csrf_token %}
             <div class="input-field">
-                <input id="amount" type="number" name="amount" required>
-                <label for="amount">Amount</label>
-            </div>
-            <div class="input-field">
                 <input id="title" type="text" name="title">
                 <label for="title">Title</label>
+            </div>
+            <div class="input-field">
+                <input id="amount" type="number" name="amount" required>
+                <label for="amount">Amount</label>
             </div>
             <div class="input-field">
                 <input id="category" type="text" name="category_name" required>
                 <label for="category">Category of Project</label>
             </div>
+            <div class="input-field">
+                <input id="description" type="text" name="description" required>
+                <label for="description">Description</label>
+            </div>
+            <div class="input-field">
+                <label for="priority">Priority</label>
+                <select id="priority" name="priority" required>
+                  <option value="">Select a priority level</option>
+                  <option value="1">Low</option>
+                  <option value="2">Medium</option>
+                  <option value="3">High</option>
+                </select>
+              </div>
+              
             <div class="input-field">
                 <input id="date" type="date" name="date">
                 <label for="date">Date</label>
@@ -153,7 +177,7 @@
 
 
     document.getElementById('expense-form').addEventListener('submit', function () {
-        this.reset();
+        //this.reset();
     });
 </script>
 

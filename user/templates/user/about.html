@@ -1,58 +1,131 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
+    <meta charset="UTF-8">
     <title>About Us</title>
     <style>
-        body {
-            background-color: #F8F8FF;
-            font-family: Arial, sans-serif;
-            color: #4F4F4F;
-            margin: 0;
-            padding: 0;
-        }
+      body {
+        background-color: #F4F4F4;
+        font-family: 'Open Sans', sans-serif;
+        color: #333333;
+        margin: 0;
+        padding: 0;
+      }
 
-        h1 {
-            color: #0f9036;
-            font-size: 36px;
-            text-align: center;
-            margin-top: 50px;
-        }
+      h1 {
+        color: #179681;
+        font-size: 36px;
+        text-align: center;
+        margin-top: 50px;
+        margin-bottom: 30px;
+      }
 
-        p {
-            font-size: 20px;
-            line-height: 1.5;
-            margin: 30px auto;
-            max-width: 600px;
-            text-align: center;
-        }
+      p {
+        font-size: 20px;
+        line-height: 1.5;
+        margin: 0 auto 30px;
+        max-width: 600px;
+        text-align: center;
+      }
 
-        .btn {
-            background-color: #0f9036;
-            color: #FFFFFF;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            display: block;
-            margin: 0 auto;
-            max-width: 200px;
-        }
+      .btn {
+        background-color: #4478e8;
+        color: #FFFFFF;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        display: block;
+        margin: 0 auto;
+        max-width: 200px;
+      }
 
-        .btn:hover {
-            background-color: #0066CC;
-        }
+      .btn:hover {
+        background-color: #0047a3;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 50px 20px;
+      }
+
+      .content {
+        margin-bottom: 30px;
+      }
+
+      .highlight {
+        color: #179681;
+      }
+
+      .team-members {
+    margin: 0 auto; /* change margin from "0px" to "0 auto" */
+    max-width: 600px; /* add max-width to limit the width of the team members section */
+    display: flex;
+    flex-direction: column; /* change flex-direction from "row" to "column" to stack team members vertically */
+    align-items: center;
+    }
+
+    .team-member {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    max-width: 400px; /* add max-width to limit the width of each team member card */
+    }
+
+    .team-member img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 20px;
+    }
+
+    .team-member .info {
+    flex: 1;
+    color: #179681;
+    }
+
+    .team-member h3 {
+    margin: 0;
+    font-size: 20px;
+    }
+
+    .team-member h4 {
+    margin: 0;
+    font-size: 15px;
+    }
+
+
     </style>
-</head>
-
-<body>
-    <h1>About Us</h1>
-    <p>We are a team of creative developers who are passionate about building amazing web applications. Our mission is
-        to provide innovative solutions that make a difference in people's lives. We use the latest technologies and
-        best practices to create robust and user-friendly applications that meet the needs of our clients.</p>
-    <a href="#" class="btn">Contact Us</a>
-</body>
-
-</html>
+  </head>
+  <body>
+    <div class="container">
+      <h1>About Us</h1>
+      <div class="content">
+        <p>We are a team of creative developers who are passionate about building amazing web applications. Our mission is to provide innovative solutions that make a difference in people's lives. We use the latest technologies and best practices to create robust and user-friendly applications that meet the needs of our clients.</p>
+        <p>We believe in the power of collaboration and teamwork. Our team members come from diverse backgrounds and bring unique perspectives to every project. By working together, we are able to create solutions that are both effective and beautiful.</p>
+      </div>
+      <div class="team-members">
+        <div class="team-member">
+          <img src="https://randomuser.me/api/portraits/women/1.jpg" alt="Team member 1">
+          <div class="info">
+            <h3>Aduful Seth</h3><h4>Lead Developer</h4>
+          </div>
+        </div>
+        <div class="team-member">
+          <img src="https://randomuser.me/api/portraits/men/2.jpg" alt="Team member 2">
+          <div class="info">
+            <h3>Mike Arthur</h3><h4>Graphics Design</h4>
+          </div>
+        </div>
+        <div class="team-member">
+            <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="Team member 2">
+            <div class="info">
+                <h3>Daniel Sarpong</h3><h4>Front-end Developer</h4>
+            </div>
+          </div>
+          </div></div></body></html>
+            
