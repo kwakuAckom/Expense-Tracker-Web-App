@@ -4,6 +4,8 @@ from django.db import models
 from django.forms import ValidationError
 from django.utils.text import slugify
 from django.core.exceptions import ValidationError
+from django.core.validators import MaxValueValidator
+
 
 class Income(models.Model):
     FREQUENCY_CHOICES = (
@@ -39,7 +41,7 @@ class Income(models.Model):
 class Project(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100, unique=True, blank=True)
-    budget = models.PositiveIntegerField()
+    budget = models.PositiveIntegerField(validators=[MaxValueValidator(999999)])
     income_source = models.ForeignKey(Income, on_delete=models.CASCADE, related_name='projects', null=True, blank=True)
 
     def save(self, *args, **kwargs):

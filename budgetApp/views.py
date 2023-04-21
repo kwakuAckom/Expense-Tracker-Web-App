@@ -23,7 +23,7 @@ from django.core.exceptions import ValidationError
 #OKAY
 @login_required
 def project_list(request):
-    project_list = Project.objects.all()
+    project_list = Project.objects.filter().order_by('-budget')
     paginator = Paginator(project_list,6)
     print(request.GET)
     page = request.GET.get('page')

@@ -41,7 +41,7 @@
     </div>
     {% if expense_list %}
     <div class="col s12 m6">
-        <h4 class="left-align">Expenses  under {{ project.name }}</h4>
+        <h4 class="left-align">Expenses  under {{ project.name }} project</h4>
     </div>
     <table class="borderless z-depth-1">
         <thead>
@@ -110,7 +110,7 @@
 
 <div id="expenseModal" class="modal">
     <div class="modal-content">
-        <h4>Add Expense</h4>
+        <h4>Add Expense to {{ project.name }} project</h4>
         <form id="expense-form" method="POST" action="{% url 'detail' project.slug %}">
             {% csrf_token %}
             <div class="input-field">

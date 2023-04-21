@@ -1,7 +1,15 @@
 {% extends 'budget/base.html' %}
 
 {% block content %}
+<style>
+    h5 {
+        text-transform: capitalize;
+    }
+</style>
 <div class="container">
+    <a href="{% url 'add' %}"
+        class="btn-floating btn-large waves-effect waves-light teal lighten-1 right hoverable roundede z-depth-2"
+        style="position: fixed; top: 20px; right: 20px;"><i class="material-icons">search</i></a>
     <h2 class="center-align" style="font-family: Arial, sans-serif; color: #333; font-size: 36px; line-height: 1.5;">My Projects</h2>
     <hr class="divider">
     <div class="row" style="margin-top: 40px;">
@@ -9,7 +17,7 @@
         <div class="col s12 m6 l4" style="margin-bottom: 30px;">
             <div class="card hoverable" style="padding: 10px;">
                 <div class="card-content">
-                    <span class="card-title teal-text text-darken-4" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333; font-size: 24px; line-height: 1.5;"><b>{{ project.name }}</b></span>
+                    <span class="card-title teal-text text-darken-4" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333; font-size: 24px;"><b><h5>{{ project.name }}</h5></b></span>
                     <p style="font-family: Arial, sans-serif; color: #666; font-size: 16px;">Budget: GHc{{ project.budget }}</p>
                     <p style="font-family: Arial, sans-serif; color: #666; font-size: 16px;">Amount left: GHc{{ project.get_left }}</p>
                 </div>
@@ -34,7 +42,7 @@
     <a href="{% url 'homepage' %}"
         class="btn-floating btn-large waves-effect waves-light teal lighten-1 right hoverable rounded z-depth-2"
         style="position: fixed; bottom: 20px; left: 20px;"><i class="material-icons">arrow_back</i></a>
-    <a href="{% url 'add' %}" class="btn-floating btn-large waves-effect waves-light teal lighten-1 right"
+    <a href="{% url 'add' %}" class="btn-floating btn-large waves-effect waves-light teal lighten-1 right hoverable roundede z-depth-2"
         style="position: fixed; bottom: 20px; right: 20px;"><i class="material-icons">add</i></a>
 </div>
 {% endblock %}
