@@ -14,8 +14,7 @@
 </style>
 
 <body
-    style="padding: 20px; background-image: url('{% static 'user/images/pic.jpg' %}');background-size: cover; background-color:rgba(0, 0, 0, 0.1);">
-    >
+    style="padding: 20px; background-image: url('{% static 'user/images/pic.jpg' %}');background-size: cover; background-color:rgba(0, 0, 0, 0.1);"><br>
     <div class="container">
         <table class="borderless z-depth-1">
             <thead>
@@ -46,14 +45,11 @@
                     <td>High</td>
                     {% endif %}
 
-                    <td>
-                        {% if expense.date == date.today %}
-                        Today
-                        {% else %}
-                        {{ expense.date|date:"M d, Y" }}
-                        {% endif %}
-                    </td>
-
+                    {% if expense.date == date.today %}
+                        <td>Today</td>
+                    {% else %}
+                        <td>{{ expense.date }}</td>
+                    {% endif %}
 
                 </tr>
                 {% endfor %}
@@ -69,6 +65,8 @@
         </div>
     </div>
     <!-- ... previous code ... -->
-
+    <a href="{% url 'homepage' %}"
+        class="btn-floating btn-large waves-effect waves-light teal lighten-1 right hoverable rounded z-depth-2"
+        style="position: fixed; bottom: 20px; left: 20px;"><i class="material-icons">home</i></a>
     {% endblock %}
 </body>

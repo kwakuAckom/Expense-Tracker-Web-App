@@ -85,7 +85,7 @@ class Expense(models.Model):
     description = models.TextField(max_length=30 )
     amount = models.PositiveSmallIntegerField(default=0.00)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    date = models.DateField(auto_now_add=True)
+    date = models.DateField()
     priority = models.IntegerField(choices=PRIORITY_CHOICES, default=1)
 
 

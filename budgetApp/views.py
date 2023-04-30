@@ -43,6 +43,7 @@ def project_detail(request, project_slug):
         category_name = request.POST.get('category_name')
         description = request.POST.get('description')
         priority = request.POST.get('priority')
+        date = request.POST.get('date')
         category, _ = Category.objects.get_or_create(name=category_name, project=project)  # Retrieve or create the category object for the expense.
         _save = Expense.objects.create(
             project=project,
@@ -50,7 +51,8 @@ def project_detail(request, project_slug):
             amount=amount,
             category=category,
             description=description,
-            priority=priority
+            priority=priority,
+            date=date
         )  # Create a new expense object with the provided data.
         _save.save()  # Save the new expense object to the database.
         return redirect('detail', project_slug=project_slug)  # Redirect the user to the project detail page.
@@ -70,7 +72,7 @@ def project_detail(request, project_slug):
 @csrf_exempt
 def project_report(request):
     # print("details ---")
-    expenses = Expense.objects.all()
+    expenses = Expense.objects.filter().order_by('date')[:10]
     context = {'expense_list': expenses}
     return render(request, 'budget/reports.html', context)
 
