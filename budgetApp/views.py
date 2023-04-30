@@ -5,8 +5,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .forms import ExpenseForm, CreateProjectForm
-from .models import Project, Category, Expense
+from .forms import ExpenseForm, CreateProjectForm, IncomeForm
+from .models import Income, Project, Category, Expense
 from django.views.generic import CreateView
 from  django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -70,36 +70,9 @@ def project_detail(request, project_slug):
 @csrf_exempt
 def project_report(request):
     # print("details ---")
-    project = get_object_or_404(Project)
-    if request.method == 'POST':
-        # print("adding---")
-        form = ExpenseForm(request.POST)
-        title = request.POST.get('title')
-        amount = request.POST.get('amount')
-        category_name = request.POST.get('category_name')
-        description = request.POST.get('description')
-        priority = request.POST.get('priority')
-        # print(title, amount, category_name)
-        category, _ = Category.objects.get_or_create(name=category_name, project=project)
-        _save = Expense.objects.create(
-            project=project,
-            title=title,
-            amount=amount,
-            category=category,
-            description=description,
-            priority=priority
-        )
-        _save.save()
-        return redirect('reports')
-    elif request.method == 'DELETE':
-        id = json.loads(request.body)['id']
-        expense = get_object_or_404(Expense, id=id)
-        expense.delete()
-        return HttpResponse('')
-    else:
-        expenses = Expense.objects.filter(project=project).order_by('-date')
-        context = {'project': project, 'expense_list': expenses, 'form': ExpenseForm()}
-        return render(request, 'budget/reports.html', context)
+    expenses = Expense.objects.all()
+    context = {'expense_list': expenses}
+    return render(request, 'budget/reports.html', context)
 
 
  #view for the project creation page
@@ -145,3 +118,51 @@ def delete_project(request, project_slug):
     project = get_object_or_404(Project, slug=project_slug)
     project.delete_project()
     return redirect('list')
+
+
+def income_list(request):
+    incomes = Income.objects.all()
+    return render(request, 'income-list.html', {'incomes': incomes})
+
+
+def income_detail(request, income_id):
+    income = get_object_or_404(Income, pk=income_id)
+    return render(request, 'income-detail.html', {'income': income})
+
+
+def income_create(request):
+    if request.method == 'POST':
+        form = IncomeForm(request.POST)
+        if form.is_valid():
+            income = form.save()
+            return redirect('income-detail', income_id=income.pk)
+    else:
+        form = IncomeForm()
+    return render(request, 'income-form.html', {'form': form})
+
+
+def income_edit(request, income_id):
+    income = get_object_or_404(Income, pk=income_id)
+    if request.method == 'POST':
+        form = IncomeForm(request.POST, instance=income)
+        income = form.save()
+        return redirect('income-detail', income_id=income.pk)
+    else:
+        form = IncomeForm(instance=income)
+    return render(request, 'income-form.html', {'form': form})
+
+
+def income_delete(request, income_id):
+    income = get_object_or_404(Income, pk=income_id)
+    income.delete()
+    return redirect('income-list')
+
+def create_income(request):
+    if request.method == 'POST':
+        form = IncomeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('income-list')
+    else:
+        form = IncomeForm()
+    return render(request, 'income-form.html', {'form': form})

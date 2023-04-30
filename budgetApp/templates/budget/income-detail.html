@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ income.title }}</h1>
+<p>Description: {{ income.description }}</p>
+<p>Amount: {{ income.amount }}</p>
+<p>Frequency: {{ income.get_frequency_display }}</p>
+<p>Last Updated: {{ income.last_updated }}</p>
+<a href="{% url 'income-edit' income_id=income.pk %}">Edit</a>
+<form method="post" action="{% url 'income-delete' income_id=income.pk %}">
+    {% csrf_token %}
+    <input type="submit" value="Delete">
+</form>
+{% endblock %}

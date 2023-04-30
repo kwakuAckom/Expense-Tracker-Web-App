@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Income List</h1>
+<ul>
+    {% for income in incomes %}
+    <li><a href="{% url 'income-detail' income_id=income.pk %}">{{ income.title }}</a></li>
+    {% empty %}
+    <li>No income yet.</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'income-create' %}">Add Income</a>
+{% endblock %}

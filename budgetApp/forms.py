@@ -1,5 +1,7 @@
 from django import forms
-from .models import Category, Expense, Project
+from django.shortcuts import redirect, render
+from .models import Category, Expense, Project, Income
+
 
 
 
@@ -37,3 +39,14 @@ class CreateProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ['name', 'budget','income_source']
+
+class IncomeForm(forms.ModelForm):
+    class Meta:
+        model = Income
+        fields = ['title', 'description', 'amount', 'frequency']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control'}),
+            'amount': forms.NumberInput(attrs={'class': 'form-control'}),
+            'frequency': forms.Select(attrs={'class': 'form-control'}),
+        }
