@@ -50,8 +50,8 @@ class Project(models.Model):
         self.slug = slugify(self.name)
         super(Project, self).save(*args, **kwargs)
 
-
-
+    def delete_project(self):
+        self.delete()
 
     def get_total_expenses(self):
         return sum(expense.amount for expense in self.expenses.all())

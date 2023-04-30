@@ -143,8 +143,5 @@ class DeleteConfirmationView(FormView):
 @csrf_exempt
 def delete_project(request, project_slug):
     project = get_object_or_404(Project, slug=project_slug)
-    if request.method == 'DELETE':
-        project.delete()
-        return HttpResponse('')
-    else:
-        return JsonResponse({'error': 'Invalid request method'}, status=405)
+    project.delete_project()
+    return redirect('list')
