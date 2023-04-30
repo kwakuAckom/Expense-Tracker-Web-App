@@ -1,5 +1,6 @@
 import json
 from django.utils.text import slugify
+from django.views.generic.edit import FormView
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse
@@ -126,3 +127,24 @@ class ProjectCreateView(CreateView):
 
     def get_success_url(self):
         return reverse('list')
+
+class DeleteConfirmationView(FormView):
+    template_name = 'budget/confirm_delete.html'
+    form_class = None
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['project'] = get_object_or_404(Project, slug=self.kwargs['project_slug'])
+        return context
+    
+    def get_success_url(self):
+        return reverse('delete', kwargs={'project_slug': self.kwargs['project_slug']})
+@login_required
+@csrf_exempt
+def delete_project(request, project_slug):
+    project = get_object_or_404(Project, slug=project_slug)
+    if request.method == 'DELETE':
+        project.delete()
+        return HttpResponse('')
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=405)

@@ -1,0 +1,18 @@
+{% extends 'budget/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="center-align" style="font-family: Arial, sans-serif; color: #333; font-size: 36px; line-height: 1.5;">
+        Delete Project</h2>
+    <hr class="divider">
+    <p style="font-family: Arial, sans-serif; color: #666; font-size: 16px;">Are you sure you want to delete "{{
+        project.name }}"?</p>
+    <form method="post" action="{% url 'delete' project.slug %}">
+        {% csrf_token %}
+        <button type="submit" class="btn waves-effect waves-light red darken-1"><i
+                class="material-icons left">delete</i>Yes, delete</button>
+        <a href="{% url 'list' %}" class="btn waves-effect waves-light teal lighten-1"><i
+                class="material-icons left">cancel</i>No, cancel</a>
+    </form>
+</div>
+{% endblock %}

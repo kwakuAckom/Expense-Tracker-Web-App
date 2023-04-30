@@ -102,9 +102,9 @@ thead {
     background-color: #9e9e9e;
 }
 .card-action a {
-    background-color: #09c898;
+    /*background-color: #09c898;*/
     color: #fff;
-    padding: 7px 12px;
+    padding: 0px;
     border-radius: 12px;
     font-size: 15px;
     text-decoration: none;
