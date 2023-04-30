@@ -73,7 +73,7 @@ form ul li.category {
 .section-expenses li:nth-child(even) .expense {
     background-color: #d6d4d4;}
 table {
-    border-collapse: separate;
+    border-collapse:collapse;
     width: 100%;
 }
 

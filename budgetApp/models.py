@@ -1,3 +1,5 @@
+from django.core.validators import MinValueValidator
+from django.utils import timezone
 from datetime import date, timedelta
 from itertools import count
 from django.db import models
@@ -85,7 +87,7 @@ class Expense(models.Model):
     description = models.TextField(max_length=30 )
     amount = models.PositiveSmallIntegerField(default=0.00)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    date = models.DateField()
+    date = models.DateField(validators=[MinValueValidator(limit_value=timezone.now().date())])
     priority = models.IntegerField(choices=PRIORITY_CHOICES, default=1)
 
 
