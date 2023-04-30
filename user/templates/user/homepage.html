@@ -13,7 +13,7 @@
 
 <body style="background-color: #08224131; font-family: Arial, sans-serif; margin: 0;">
     <header
-        style="background-color: #0aa33f; color: #fff; padding: 0px 20px; height: 60px; display: flex; align-items: center; justify-content: center;">
+        style="background-color: teal; color: #fff; padding: 0px 20px; height: 60px; display: flex; align-items: center; justify-content: center;">
         <nav style="display: flex; justify-content:space-between; align-items: center; width: 100%;">
             <div style="display: flex; align-items: center;">
                 <a href="{% url 'about' %}"><img src="{% static 'user/images/budget-icon.png' %}"
@@ -24,7 +24,8 @@
                 <li style="margin-right: 20px;"><a href="{% url 'list' %}"
                         style="color: #fff; text-decoration: none;">Projects</a>
                 </li>
-                <li style="margin-right: 20px;"><a href="#" style="color: #fff; text-decoration: none;">Reports</a></li>
+                <li style="margin-right: 20px;"><a href="{% url 'reports' %}" style="color: #fff; text-decoration: none;">Reports</a></li>
+                <li style="margin-right: 20px;"><a href="{% url 'about' %}" style="color: #fff; text-decoration: none;">About</a></li>
                 <li style="margin-right: 30px;"><a href="{% url 'logout' %}"
                         style="color: #fff; text-decoration: none;">Logout</a>
                 </li>
@@ -35,13 +36,15 @@
             </ul>
         </nav>
     </header>
-    <main style="padding: 50px;">
-        <h1 style="color: #050505; font-size: 3rem; margin-bottom: 20px;">Track Your Expenses with Ease</h1>
+    <main style="padding: 20px; background-image: url('{% static 'user/images/pic.jpg' %}');background-size: cover; background-color:rgba(0, 0, 0, 0.1);">
+        <!-- Your page content here -->
+
+        <h1 style="color: #050505; font-size: 3rem; margin-bottom: 20px;opacity: 0.65;">Track Your Expenses with Ease</h1>
         <p style="color: #050505; font-size: 1.2rem; margin-bottom: 30px;">Our expense tracker app helps you keep track
             of
             your spending, so you can stay on budget and achieve your financial goals.</p>
         <a href="{% url 'add' %}"
-            style="background-color: #0aa33f; color: #fff; font-size: 1.2rem; padding: 10px 20px; border-radius: 5px; text-decoration: none;">Get
+            style="background-color: teal; color: #fff; font-size: 1.2rem; padding: 10px 20px; border-radius: 5px; text-decoration: none;">Get
             Started</a>
         <div id="financial-tips" style="margin-top: 50px;">
             <h2 style="color: #050505; font-size: 2rem; margin-bottom: 20px;text-align: center;text-decoration: underline;">Financial Tips</h2>
@@ -50,15 +53,20 @@
                     and stick to it.</p>
             </div>
         </div>
-    </main><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br>
+    </main>
     <style>
+        #financial-tips {
+            opacity: 0.7
+        }
         #tip-container {
-            opacity: 0.5;
+            color: teal;
+            opacity: 0.6;
             transform: translateY(50%);
             transition: opacity 1s ease-out, transform 1s ease-in-out;
         }
     </style>
-    <footer style="background-color: #0aa33f; color: #fff; text-align: center; padding: 20px;">
+    <footer style="background-color: teal; color: #fff; text-align: center; padding: 20px;">
         <p style="margin: 0;">&copy; 2023 Expense Tracker. All rights reserved.</p>
     </footer>
     
@@ -66,7 +74,8 @@
     
     <script>
         const tipContainer = document.getElementById("_tip");
-        const tips = ["Create a budget and stick to it.", "Start saving for retirement as early as possible.", "Avoid high-interest debt like credit cards."];
+        const tips = ["Stay informed about financial news and trends.","Create a budget and stick to it.", "Avoid unnecessary debt and try to pay off any existing debt as soon as possible.","Start saving for retirement as early as possible.", "Avoid high-interest debt like credit cards.",
+    "Invest in retirement savings accounts.","Shop around for better deals and negotiate prices.","Invest in yourself through education or learning new skills.","Live below your means and avoid overspending.","Build an emergency fund to cover unexpected expenses."];
         let i = 0;
 
         setInterval(() => {

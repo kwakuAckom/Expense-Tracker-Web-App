@@ -1,9 +1,19 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8">
     <title>About Us</title>
     <style>
+      .container {
+        margin: 0;
+        min-height: 100%;
+        min-width: 100%;
+        padding: 10px; 
+        background-image: url('{% static 'user/images/pic.jpg' %}');
+        background-size: cover; 
+        background-color:rgba(0, 0, 0, 0.9);
+    }
       body {
         background-color: #F4F4F4;
         font-family: 'Open Sans', sans-serif;
@@ -47,7 +57,7 @@
       }
 
       .container {
-        max-width: 800px;
+        min-width: 100%;
         margin: 0 auto;
         padding: 50px 20px;
       }
@@ -116,16 +126,13 @@
           </div>
         </div>
         <div class="team-member">
-          <img src="https://randomuser.me/api/portraits/men/2.jpg" alt="Team member 2">
-          <div class="info">
-            <h3>Mike Arthur</h3><h4>Graphics Design</h4>
-          </div>
-        </div>
-        <div class="team-member">
             <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="Team member 2">
             <div class="info">
                 <h3>Daniel Sarpong</h3><h4>Front-end Developer</h4>
             </div>
           </div>
+          <a href="{% url 'homepage' %}"
+            class="btn-floating btn-large waves-effect waves-light teal lighten-1 right hoverable rounded z-depth-2"
+            style="position: fixed; bottom: 20px; left: 20px;"><i class="material-icons">arrow_back</i></a>
           </div></div></body></html>
             

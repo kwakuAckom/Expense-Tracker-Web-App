@@ -1,0 +1,119 @@
+{% extends 'budget/base.html' %}
+
+{% block content %}
+<style>
+    .card-panel {
+        border-radius: 10px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    h4 {
+        text-transform: capitalize;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <br><br>
+        {% for project in project_list %}
+        <div class="col s12 m6 l4">
+            <div class="card-panel blue white-text">
+                <h6 class="bold">Total Budget</h6>
+                <h3 class="bold">GHc{{ project.budget }}</h3>
+            </div>
+        </div>
+        <div class="col s12 m6 l4">
+            <div class="card-panel green white-text">
+                <h6 class="bold">Amount Left</h6>
+                {% if project.get_left > 0 %}
+                <h3 class="bold white-text">GHc{{ project.get_left }}</h3>
+                {% elif project.get_left == 0 %}
+                <h3 class="bold orange-text">GHc{{ project.get_left }}</h3>
+                {% else %}
+                <h3 class="bold red-text">GHc{{ project.get_left }}</h3>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col s12 m6 l4">
+            <div class="card-panel amber black-text">
+                <h6 class="bold">Total Amount Spent</h6>
+                <h3 class="bold">GHc{{ project.get_total_expenses }}</h3>
+            </div>
+        </div>
+    </div>
+    {% if expense_list %}
+    <div class="col s12 m6">
+        <h4 class="left-align">Expenses under {{ project.name }} project</h4>
+    </div>
+    <table class="borderless z-depth-1">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Category</th>
+                <th>Priority</th>
+                <th>Date</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for expense in expense_list %}
+            <tr>
+                <td>{{ expense.title }}</td>
+                <td>{{ expense.description }}</td>
+                <td>GHc{{ expense.amount }}</td>
+                <td>{{ expense.category.name }}</td>
+                {% if expense.priority == 1 %}
+                <td>Low</td>
+                {% elif expense.priority == 2 %}
+                <td>Medium</td>
+                {% else %}
+                <td>High</td>
+                {% endif %}
+                <td>{{ expense.date }}</td>
+                <td>
+                    <a class="close-icon" onclick="deleteExpense(this)" data-id="{{ expense.id }}">
+                        <i class="material-icons red-text right">close</i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table><br>
+            {% endfor %}
+    <div class="col s12 m6">
+        <ul>
+            <li><button class="btn waves-effect right modal-trigger" href='#expenseModal'>
+                    <i class="material-icons white-text left">add_circle</i>
+                    Add Expense
+                </button></li>
+        </ul>
+    </div>
+    {% else %}
+    <br>
+    <p>
+    <h3> Project has no expenses </h3>
+    </p>
+
+    <div class="col s12 m6">
+        <button class="btn waves-effect right modal-trigger" href='#expenseModal'>
+            <i class="material-icons white-text left">add_circle</i>
+            Add Expense
+        </button>
+    </div>
+    {% endif %}
+    <br><br>
+    <div class="row">
+        <div class="col s12">
+            <a href="{% url 'list' %}" class="btn waves-effect waves-light">
+                Go to List
+            </a>
+        </div>
+    </div>
+</div>
+<!-- ... previous code ... -->
+
+
+
+{% endblock %}

@@ -1,7 +1,15 @@
 {% extends 'budget/base.html' %}
-
+{% load static %}
 {% block content %}
 <style>
+    .container {
+        min-height: 100%;
+        min-width: 100%;
+        padding: 20px; 
+        background-image: url('{% static 'user/images/pic.jpg' %}');
+        background-size: cover; 
+        background-color:rgba(0, 0, 0, 0.1);
+    }
     h5 {
         text-transform: capitalize;
     }
@@ -15,7 +23,7 @@
     <div class="row" style="margin-top: 40px;">
         {% for project in project_list %}
         <div class="col s12 m6 l4" style="margin-bottom: 30px;">
-            <div class="card hoverable" style="padding: 10px;">
+            <div class="card hoverable" style="padding: 10px; ">
                 <div class="card-content">
                     <span class="card-title teal-text text-darken-4" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333; font-size: 24px;"><b><h5>{{ project.name }}</h5></b></span>
                     <p style="font-family: Arial, sans-serif; color: #666; font-size: 16px;">Budget: GHc{{ project.budget }}</p>

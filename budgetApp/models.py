@@ -82,7 +82,7 @@ class Expense(models.Model):
     )
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='expenses')
     title = models.CharField(max_length=30)
-    description = models.TextField(max_length=60 )
+    description = models.TextField(max_length=30 )
     amount = models.PositiveSmallIntegerField(default=0.00)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True)

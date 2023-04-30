@@ -91,8 +91,8 @@ tr:hover {
     background-color: #dce1e0;
 }
 
-th {
-    background-color: #4CAF50;
+thead {
+    background-color: teal;
     color: white;
 }
 .close-icon:hover{
