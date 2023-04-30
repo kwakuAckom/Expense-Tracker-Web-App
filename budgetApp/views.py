@@ -66,13 +66,11 @@ def project_detail(request, project_slug):
         context = {'project': project, 'expense_list': expenses, 'form': ExpenseForm()}  # Create a dictionary of context data to be passed to the template.
         return render(request, 'budget/project-detail.html', context)  # Render the project detail template with the context data.
 
-# This
 
 @login_required
 @csrf_exempt
 def project_report(request):
-    # print("details ---")
-    expenses = Expense.objects.filter().order_by('date')[:10]
+    expenses = Expense.objects.filter().order_by('date')[:7]
     context = {'expense_list': expenses}
     return render(request, 'budget/reports.html', context)
 
@@ -103,54 +101,60 @@ class ProjectCreateView(CreateView):
     def get_success_url(self):
         return reverse('list')
 
+# View for project deletion confirmation page
 class DeleteConfirmationView(FormView):
-    template_name = 'budget/confirm_delete.html'
-    form_class = None
+    template_name = 'budget/confirm_delete.html'   # The template used to render the view
+    form_class = None   # Form used is not specified
     
+    # Get additional context data for rendering the template
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['project'] = get_object_or_404(Project, slug=self.kwargs['project_slug'])
         return context
     
+    # Get the URL to be redirected to after successful form submission
     def get_success_url(self):
         return reverse('delete', kwargs={'project_slug': self.kwargs['project_slug']})
-@login_required
-@csrf_exempt
+
+# Delete a project
+@login_required   # decorator to allow only authenticated users
+@csrf_exempt   # decorator to allow cross-site request forgery protection to be bypassed
 def delete_project(request, project_slug):
+    # Get the project to be deleted
     project = get_object_or_404(Project, slug=project_slug)
-    project.delete_project()
-    return redirect('list')
+    project.delete_project()   # Delete the project
+    return redirect('list')   # Redirect to the project list page
 
-
+# View for displaying a list of incomes
 def income_list(request):
-    incomes = Income.objects.all()
-    return render(request, 'income-list.html', {'incomes': incomes})
+    incomes = Income.objects.all()   # Get all Income objects from the database
+    return render(request, 'income-list.html', {'incomes': incomes})   # Render the income list template with the retrieved incomes
 
-
+# View for displaying the details of an income
 def income_detail(request, income_id):
-    income = get_object_or_404(Income, pk=income_id)
-    return render(request, 'income-detail.html', {'income': income})
+    income = get_object_or_404(Income, pk=income_id)   # Get the Income object with the specified primary key
+    return render(request, 'income-detail.html', {'income': income})   # Render the income detail template with the retrieved income
 
-
+# View for creating a new income
 def income_create(request):
-    if request.method == 'POST':
-        form = IncomeForm(request.POST)
-        if form.is_valid():
-            income = form.save()
-            return redirect('income-detail', income_id=income.pk)
-    else:
-        form = IncomeForm()
-    return render(request, 'income-form.html', {'form': form})
+    if request.method == 'POST':   # If the form is submitted
+        form = IncomeForm(request.POST)   # Get the submitted form
+        if form.is_valid():   # If the form is valid
+            income = form.save()   # Save the new Income object to the database
+            return redirect('income-detail', income_id=income.pk)   # Redirect to the detail page of the newly created income
+    else:   # If the form is not submitted
+        form = IncomeForm()   # Create a new, empty IncomeForm object
+    return render(request, 'income-form.html', {'form': form})   # Render the income form template with the form object
 
-
+# View for editing an existing income
 def income_edit(request, income_id):
-    income = get_object_or_404(Income, pk=income_id)
-    if request.method == 'POST':
-        form = IncomeForm(request.POST, instance=income)
-        income = form.save()
-        return redirect('income-detail', income_id=income.pk)
-    else:
-        form = IncomeForm(instance=income)
+    income = get_object_or_404(Income, pk=income_id)   # Get the Income object to be edited
+    if request.method == 'POST':   # If the form is submitted
+        form = IncomeForm(request.POST, instance=income)   # Get the submitted form with the current income object as instance
+        income = form.save()   # Save the updated Income object to the database
+        return redirect('income-detail', income_id=income.pk)   # Redirect to the detail page of the edited income
+    else:   # If the form is not submitted
+        form = IncomeForm(instance=income)   # Create a new IncomeForm object pre-filled with the data from the income object
     return render(request, 'income-form.html', {'form': form})
 
 
